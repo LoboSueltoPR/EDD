@@ -2,13 +2,13 @@ package ar.edu.uns.cs.ed.tdas.tdaarbolbinario;
 
 import ar.edu.uns.cs.ed.tdas.Position;
 import ar.edu.uns.cs.ed.tdas.tdaarbol.Tree;
-
+import ar.edu.uns.cs.ed.tdas.tdaarbol.*;
 /**
  * Interface BinaryTree
  * Extiende la interfaz Tree.
  * @author Cátedra de Estructuras de Datos, Departamento de Cs. e Ing. de la Computación, UNS.
  */
-public interface BinaryTree<E> extends Tree<E>
+public interface BinaryTree<E> extends GTTree<E>
 {
 	/**
 	 * Devuelve la posición del hijo izquierdo de v.
@@ -18,8 +18,8 @@ public interface BinaryTree<E> extends Tree<E>
 	 * @throws BoundaryViolationException si v no tiene hijo izquierdo.
 	 */
 	public Position<E> left(Position<E> v);
+	
 	/**
-	 * 
 	 * Devuelve la posición del hijo derecho de v.
 	 * @param v Posición de un nodo.
 	 * @return Posición del hijo derecho de v.
