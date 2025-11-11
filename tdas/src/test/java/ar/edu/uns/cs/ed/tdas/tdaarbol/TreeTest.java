@@ -11,7 +11,7 @@ import ar.edu.uns.cs.ed.tdas.tdacola.Queue;
 import ar.edu.uns.cs.ed.tdas.tdalista.PositionList;
 import ar.edu.uns.cs.ed.tdas.Position;
 import ar.edu.uns.cs.ed.tdas.excepciones.*;
-import ar.edu.uns.cs.ed.tdas.tdacola.ArrayQueue;
+import ar.edu.uns.cs.ed.tdas.tdacola.*;
 import ar.edu.uns.cs.ed.tdas.tdalista.lista;
 
 
