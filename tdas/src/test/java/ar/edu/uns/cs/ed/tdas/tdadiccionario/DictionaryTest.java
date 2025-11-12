@@ -485,6 +485,141 @@ public class DictionaryTest {
 			
 	    		
 	}
+
 	
+	/* TESTEANDO EL MÉTODO AlMenosEentradas */
+	
+	@Test
+	public void AlMenosEentradas() {
+		
+		// Clave inválida - debe lanzar excepción
+		try {
+			s.AlMenosEentradas(null, 1);
+			fail("El método AlMenosEentradas() debería haber lanzado la excepción InvalidKeyException para una clave nula");
+		} catch (InvalidKeyException e) {
+		}
+		
+		// Diccionario vacío - no hay al menos 1 entrada con cualquier clave
+		try {
+			assertTrue(
+					"AlMenosEentradas() debería retornar false cuando el diccionario está vacío",
+					!s.AlMenosEentradas(1, 1));
+		} catch (InvalidKeyException e) {
+			fail("El método AlMenosEentradas() no debería lanzar InvalidKeyException con una clave válida.");
+		}
+		
+		// Insertando varias entradas con claves repetidas
+		try {
+			// Insertar 5 entradas con clave 10
+			s.insert(10, 100);
+			s.insert(10, 101);
+			s.insert(10, 102);
+			s.insert(10, 103);
+			s.insert(10, 104);
+			
+			// Insertar 3 entradas con clave 20
+			s.insert(20, 200);
+			s.insert(20, 201);
+			s.insert(20, 202);
+			
+			// Insertar 1 entrada con clave 30
+			s.insert(30, 300);
+		} catch (InvalidKeyException e) {
+			fail("El método insert() no debería lanzar InvalidKeyException con una clave válida.");
+		}
+		
+		// Test: verificar que hay al menos 1 entrada con clave 10
+		try {
+			assertTrue(
+					"AlMenosEentradas() debería retornar true cuando hay al menos 1 entrada con clave 10",
+					s.AlMenosEentradas(10, 1));
+		} catch (InvalidKeyException e) {
+			fail("El método AlMenosEentradas() no debería lanzar InvalidKeyException con una clave válida.");
+		}
+		
+		// Test: verificar que hay al menos 3 entradas con clave 10
+		try {
+			assertTrue(
+					"AlMenosEentradas() debería retornar true cuando hay al menos 3 entradas con clave 10",
+					s.AlMenosEentradas(10, 3));
+		} catch (InvalidKeyException e) {
+			fail("El método AlMenosEentradas() no debería lanzar InvalidKeyException con una clave válida.");
+		}
+		
+		// Test: verificar que hay al menos 5 entradas con clave 10
+		try {
+			assertTrue(
+					"AlMenosEentradas() debería retornar true cuando hay al menos 5 entradas con clave 10",
+					s.AlMenosEentradas(10, 5));
+		} catch (InvalidKeyException e) {
+			fail("El método AlMenosEentradas() no debería lanzar InvalidKeyException con una clave válida.");
+		}
+		
+		// Test: verificar que NO hay 6 entradas con clave 10
+		try {
+			assertTrue(
+					"AlMenosEentradas() debería retornar false cuando NO hay al menos 6 entradas con clave 10",
+					!s.AlMenosEentradas(10, 6));
+		} catch (InvalidKeyException e) {
+			fail("El método AlMenosEentradas() no debería lanzar InvalidKeyException con una clave válida.");
+		}
+		
+		// Test: verificar que hay al menos 3 entradas con clave 20
+		try {
+			assertTrue(
+					"AlMenosEentradas() debería retornar true cuando hay al menos 3 entradas con clave 20",
+					s.AlMenosEentradas(20, 3));
+		} catch (InvalidKeyException e) {
+			fail("El método AlMenosEentradas() no debería lanzar InvalidKeyException con una clave válida.");
+		}
+		
+		// Test: verificar que NO hay 4 entradas con clave 20
+		try {
+			assertTrue(
+					"AlMenosEentradas() debería retornar false cuando NO hay al menos 4 entradas con clave 20",
+					!s.AlMenosEentradas(20, 4));
+		} catch (InvalidKeyException e) {
+			fail("El método AlMenosEentradas() no debería lanzar InvalidKeyException con una clave válida.");
+		}
+		
+		// Test: verificar que hay al menos 1 entrada con clave 30
+		try {
+			assertTrue(
+					"AlMenosEentradas() debería retornar true cuando hay al menos 1 entrada con clave 30",
+					s.AlMenosEentradas(30, 1));
+		} catch (InvalidKeyException e) {
+			fail("El método AlMenosEentradas() no debería lanzar InvalidKeyException con una clave válida.");
+		}
+		
+		// Test: verificar que NO hay 2 entradas con clave 30
+		try {
+			assertTrue(
+					"AlMenosEentradas() debería retornar false cuando NO hay al menos 2 entradas con clave 30",
+					!s.AlMenosEentradas(30, 2));
+		} catch (InvalidKeyException e) {
+			fail("El método AlMenosEentradas() no debería lanzar InvalidKeyException con una clave válida.");
+		}
+		
+		// Test: verificar con clave que no existe en el diccionario
+		try {
+			assertTrue(
+					"AlMenosEentradas() debería retornar false cuando la clave no existe en el diccionario",
+					!s.AlMenosEentradas(99, 1));
+		} catch (InvalidKeyException e) {
+			fail("El método AlMenosEentradas() no debería lanzar InvalidKeyException con una clave válida.");
+		}
+		
+		// Test: caso extremo con n=0
+		try {
+			assertTrue(
+					"AlMenosEentradas() debería retornar true cuando n=0 (siempre hay al menos 0 entradas)",
+					s.AlMenosEentradas(10, 0));
+		} catch (InvalidKeyException e) {
+			fail("El método AlMenosEentradas() no debería lanzar InvalidKeyException con una clave válida.");
+		}
+		
+	}
+	
+		
 	
 }

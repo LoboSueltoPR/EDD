@@ -1,6 +1,7 @@
 package ar.edu.uns.cs.ed.tdas.tdadiccionario;
 
 import ar.edu.uns.cs.ed.tdas.Entry;
+import ar.edu.uns.cs.ed.tdas.excepciones.InvalidKeyException;
 
 /**
  * Interface Dictionary
@@ -58,4 +59,6 @@ public interface Dictionary<K,V>
 	 */
 	public Iterable<Entry<K,V>> entries();
 	
+
+	public boolean AlMenosEentradas(K key, int n) throws InvalidKeyException;
 }

@@ -1,10 +1,9 @@
- 	package ar.edu.uns.cs.ed.tdas.tdaarbol;
-
+package ar.edu.uns.cs.ed.tdas.tdaarbol;
 import java.util.Iterator;
-
 import ar.edu.uns.cs.ed.tdas.excepciones.*;
 import ar.edu.uns.cs.ed.tdas.Position;
 import ar.edu.uns.cs.ed.tdas.tdalista.*;
+import javafx.geometry.Pos;
 public class Arbol<E> implements Tree<E>{
 	
 	//Atributos de isntancia
@@ -28,7 +27,33 @@ public class Arbol<E> implements Tree<E>{
 		}
 	}
 	
-	
+	public Iterable<E> convertirAhoja(Position<E> p) throws InvalidPositionException{
+		Tnodo <E> nodo= CheckPositions(p);
+		PositionList<E> toRet=new lista<>();
+		posor(toRet,nodo);
+		return toRet;
+	}
+
+	public void posor(PositionList<E> list, Tnodo<E> nodo) {
+		if(nodo != null) {
+			// Primero agregamos el elemento actual a la lista
+			// Luego eliminamos todos los hijos del nodo actual
+			PositionList<Tnodo<E>> listaHijos = nodo.getListahijos();
+			
+			
+			// Recursivamente procesamos todos los hijos
+			for (Tnodo<E> child : listaHijos) {
+				posor(list, child);	
+			}
+			
+			while(!listaHijos.isEmpty()) {
+				Position<Tnodo<E>> first = listaHijos.first();
+				listaHijos.remove(first);
+				cantElem--;
+				list.addLast(nodo.element());
+			}
+		}
+	}
 	
 	@Override
 	public int size() {

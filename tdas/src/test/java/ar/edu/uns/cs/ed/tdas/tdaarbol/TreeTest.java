@@ -13,6 +13,7 @@ import ar.edu.uns.cs.ed.tdas.Position;
 import ar.edu.uns.cs.ed.tdas.excepciones.*;
 import ar.edu.uns.cs.ed.tdas.tdacola.*;
 import ar.edu.uns.cs.ed.tdas.tdalista.lista;
+import ar.edu.uns.cs.ed.tdas.tdamapeo.Map;
 
 
 public class TreeTest {
@@ -1489,6 +1490,52 @@ public class TreeTest {
 			}
 
 		}
+
 	}
+
+@Test
+public void contarVocalesSoloInternos() {
+    Tree<Character> t = new Arbol<>();
+    ej util = new ej();
+
+    t.createRoot('a');                      // raíz 'a' (interna si tiene hijos)
+    Position<Character> r = t.root();
+    t.addLastChild(r, 'b');                 // hijo hoja consonante
+    Position<Character> e = t.addLastChild(r, 'e'); // 'e' será interna
+    t.addLastChild(r, 'i');                 // hoja vocal (no debería contarse)
+    t.addLastChild(e, 'o');                 // hace que 'e' sea interna
+
+    Map<Character, Integer> res = util.ContarVocales(t);
+
+    assertNotNull(res);
+    assertEquals(Integer.valueOf(1), res.get('a')); // raíz interna y vocal
+    assertEquals(Integer.valueOf(1), res.get('e')); // interna y vocal
+    assertNull(res.get('i'));                      // hoja vocal no contada
+    assertNull(res.get('o'));                      // hoja vocal no contada
+    assertNull(res.get('u'));
+}
+
+@Test(expected = ar.edu.uns.cs.ed.tdas.excepciones.EmptyTreeException.class)
+public void contarVocalesArbolVacioLanza() {
+    Tree<Character> t = new Arbol<>();
+    ej util = new ej();
+    util.ContarVocales(t); // root() lanza EmptyTreeException
+}
+
+@Test
+public void contarVocalesSoloHojasNoCuenta() {
+    Tree<Character> t = new Arbol<>();
+    ej util = new ej();
+
+    t.createRoot('x');           // raíz consonante
+    Position<Character> r = t.root();
+    t.addLastChild(r, 'a');      // hojas vocales
+    t.addLastChild(r, 'e');
+
+    Map<Character, Integer> res = util.ContarVocales(t);
+
+    assertTrue(res.isEmpty());   // no debe contar hojas
+}
+
 
 }

@@ -125,7 +125,29 @@ public class DiccionarioHashAbierto<K,V> implements Dictionary<K,V>{
 	
 
 	
+	public boolean AlMenosEentradas(K key, int n) throws InvalidKeyException {
+		if(key==null)throw new InvalidKeyException("key no valida");
+		
+		int contador=0;
+		int clave =hash(key);
+		PositionList<Entry<K,V>> lista = array[clave];
 
+		Iterator<Entry<K,V>> it = lista.iterator();
+		while(it.hasNext() && contador < n) {
+			Entry<K,V> puntero=it.next();
+			if(puntero.getKey().equals(key)) {
+				contador++;
+			}
+		}
+		// for(Entry<K,V> entrada: array[clave]) {
+		// 	if(entrada.getKey().equals(key)) {
+		// 		contador++;
+		// 	}
+		// }
+
+
+		return contador>=n;
+	}
 	
 	
 }
