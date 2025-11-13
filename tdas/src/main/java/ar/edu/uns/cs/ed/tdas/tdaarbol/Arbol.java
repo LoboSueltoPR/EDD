@@ -120,7 +120,7 @@ public class Arbol<E> implements Tree<E>{
 	}
 
 	@Override
-	public Iterable<Position<E>> children(Position<E> v) {
+	public Iterable<Position<E>> children(Position<E> v) throws InvalidPositionException {
 		Tnodo<E> nodo=CheckPositions(v);
 		PositionList<Position<E>> toRet=new lista<>();
 		
@@ -350,7 +350,54 @@ public class Arbol<E> implements Tree<E>{
 			
 		}	
 	}
-	
+	public Iterator<Position<E>> covertirAHoja(Position<E> p)throws InvalidPositionException{
+        try {
+            PositionList<Position<E>> l =new lista();
+            Tnodo<E> tnod = CheckPositions(p);
+            if(!tnod.getListahijos().isEmpty()) {
+                posOr(tnod,l);
+            }
+            return l.iterator();
+        }catch(InvalidPositionException a ) {
+            System.out.print("Posicion Invalida");
+            return null;
+        }
+
+    }
+    private void posOr(Tnodo<E> a, PositionList<Position<E>> l ){
+            Iterator<Position<Tnodo<E>>> b = a.getListahijos().positions().iterator();
+            while(b.hasNext()) {
+                Position<Tnodo<E>> rem = b.next();
+                posOr(rem.element(),l);
+                l.addLast(rem.element());
+
+                a.getListahijos().remove(rem);
+                a.setPadre(null);
+                cantElem--;
+            }
+    }
+
+public int podarSubarbol(Position<E> p) throws InvalidPositionException{
+	Tnodo<E> nodo=CheckPositions(p);
+	return podarposor(nodo);
+}
+
+private int podarposor(Tnodo<E> nodo){
+	int contador=0;
+	if(nodo!=null){
+		while(!nodo.getListahijos().isEmpty()){
+			Position<Tnodo<E>> hijo=nodo.getListahijos().first();
+			contador+=podarposor(hijo.element());
+			nodo.getListahijos().remove(hijo);
+			contador++;
+			cantElem--;
+		}
+	}
+	return contador;
+}
+
+
+
 }
 	
 	

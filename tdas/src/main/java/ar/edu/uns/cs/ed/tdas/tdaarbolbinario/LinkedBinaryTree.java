@@ -58,6 +58,7 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
 	}
 	
 	
+
 	private void posOrden(BTNode<E> root,PositionList<Position<E>> list) {
 		if(root.getLeft()!=null){
 			posOrden(root.getLeft(),list);
@@ -261,5 +262,26 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
 			node.setRight(R2);
 		} catch (InvalidPositionException | EmptyTreeException e) {e.printStackTrace();}
 	}
+	
+	public BinaryTree<E> BinaryTreeCopy(){
+		LinkedBinaryTree<E> nuevoArbol = new LinkedBinaryTree<>();
+		if (!isEmpty()) {
+			nuevoArbol.root = copiarNodo(root, null);
+			nuevoArbol.cantElems = cantElems;
+			
+		}
+		return nuevoArbol;
+	}
+	private BTNode<E> copiarNodo(BTNode<E> nodoOriginal, BTNode<E> padreNuevo) {
+		BTNode<E> nuevoNodo = new BTNode<>(nodoOriginal.element(), padreNuevo, null, null);
 		
+		if (nodoOriginal.getLeft() != null) {
+			nuevoNodo.setLeft(copiarNodo(nodoOriginal.getLeft(), nuevoNodo));
+		}
+		if (nodoOriginal.getRight() != null) {
+			nuevoNodo.setRight(copiarNodo(nodoOriginal.getRight(), nuevoNodo));
+		}
+		return nuevoNodo;
+	}
+	
 }
