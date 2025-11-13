@@ -396,7 +396,29 @@ private int podarposor(Tnodo<E> nodo){
 	return contador;
 }
 
-
+public int eliminadeAtodaslasE(E e){
+	int contador=eliminadeAtodaslaseposor(Raiz,e);
+	return contador;
+}
+private int eliminadeAtodaslaseposor(Tnodo<E> nodo, E e){
+	int contador=0;
+	// if(!nodo.getListahijos().isEmpty()){
+	// 	for(Tnodo<E> hijo:nodo.getListahijos()){
+	// 		contador+=eliminadeAtodaslaseposor(hijo, e);
+	// 	}
+	// }
+	Iterator<Position<Tnodo<E>>> it=nodo.getListahijos().positions().iterator();
+	while(it.hasNext()){
+		Position<Tnodo<E>> poshijo=it.next();
+		contador+=eliminadeAtodaslaseposor(poshijo.element(), e);
+	}
+	if(nodo.element().equals(e)){
+			removeNode(nodo);
+			contador++;
+			cantElem--;
+	}
+	return contador;
+}
 
 }
 	

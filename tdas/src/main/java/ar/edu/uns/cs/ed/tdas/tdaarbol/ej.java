@@ -34,4 +34,39 @@ private void posorden(Position<Character> nodo, Map<Character,Integer> mapavocal
 
 }
 }
+public Map<Character, Integer> cantidadRepeticiones(Tree<Character> t){
+    Map<Character, Integer> mapa=new MapeoConHash<>();
+    contarreps(t.root(),mapa,t);
+    return mapa;
+	}
+
+// private void contarreps(Tnodo<Character> nodo,Map<Character,Integer> mapa,Tree<Character> t){
+//     Integer num=mapa.get(t.root().element());
+//     if(num==null){
+//         mapa.put(t.root().element(), 1);
+//     }else{
+//         mapa.put(t.root().element(),num+1);
+//     }
+
+//     if(!nodo.getListahijos().isEmpty()){
+//         for(Tnodo<Character> hijos:nodo.getListahijos()){
+//             contarreps(hijos,mapa,t);    
+//         }
+//     }
+// }
+private void contarreps(Position<Character> nodo,Map<Character,Integer> mapa,Tree<Character> t){
+    Integer num=mapa.get(nodo.element());
+    if(num==null){
+        mapa.put(nodo.element(), 1);
+    }else{
+        mapa.put(nodo.element(),num+1);
+    }
+
+    if(t.isInternal(nodo)){
+        for(Position<Character> hijos:t.children(nodo)){
+            contarreps(hijos,mapa,t);    
+        }
+    }
+}
+
 
